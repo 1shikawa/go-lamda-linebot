@@ -9,7 +9,7 @@ import (
 // レストラン情報をテキストで返す
 func TextRestaurants(g *gurunavi.GurunaviResponseBody) string {
 	var t string
-	for _, r := range g.Rest{
+	for _, r := range g.Rest {
 		t += r.Name + "\n" + r.URL + "\n"
 	}
 	return t
@@ -39,7 +39,6 @@ func FlexRestaurants(g *gurunavi.GurunaviResponseBody) *linebot.CarouselContaine
 }
 
 func setHero(r *gurunavi.Rest) *linebot.ImageComponent {
-	// 飲食店の画像URLがない場合
 	if r.ImageURL.ShopImage1 == "" {
 		return nil
 	}
@@ -53,7 +52,6 @@ func setHero(r *gurunavi.Rest) *linebot.ImageComponent {
 	}
 }
 
-
 func setBody(r *gurunavi.Rest) *linebot.BoxComponent {
 	return &linebot.BoxComponent{
 		Type:   linebot.FlexComponentTypeBox,
@@ -66,7 +64,6 @@ func setBody(r *gurunavi.Rest) *linebot.BoxComponent {
 		},
 	}
 }
-
 
 func setRestaurantName(r *gurunavi.Rest) *linebot.TextComponent {
 	return &linebot.TextComponent{
@@ -101,7 +98,6 @@ func setSubtitle(t string) *linebot.TextComponent {
 	}
 }
 
-
 func setDetail(t string) *linebot.TextComponent {
 	return &linebot.TextComponent{
 		Type:  linebot.FlexComponentTypeText,
@@ -126,10 +122,8 @@ func setCategory(r *gurunavi.Rest) *linebot.BoxComponent {
 	}
 }
 
-
 func setBudget(r *gurunavi.Rest) *linebot.BoxComponent {
 	var detail string
-	// if文での型アサーションの使用　r.Budgetがfloat64型であれば
 	if b, ok := r.Budget.(float64); ok {
 		detail = "¥" + humanize.Comma(int64(b))
 	} else {
@@ -160,7 +154,6 @@ func setFooter(r *gurunavi.Rest) *linebot.BoxComponent {
 		},
 	}
 }
-
 
 func setButton(label string, uri string) *linebot.ButtonComponent {
 	return &linebot.ButtonComponent{

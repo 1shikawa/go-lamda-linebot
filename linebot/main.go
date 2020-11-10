@@ -44,7 +44,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 			Body:       fmt.Sprintf(`{"message":"%s"}`+"\n", http.StatusText(http.StatusBadRequest)),
 		}, nil
 	}
-
+	
 	for _, event := range webhook.Events {
 		switch event.Type {
 		case linebot.EventTypeMessage:
@@ -91,7 +91,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 					// }
 
 					// カルーセルコンテナとしてLine返信
-					if _, err = bot.ReplyMessage(event.ReplyToken, am).Do(); err != nil {
+					if _, err = bot.ReplyMessage(event.ReplyToken, sm).Do(); err != nil {
 						log.Print(err)
 						return events.APIGatewayProxyResponse{
 							StatusCode: http.StatusInternalServerError,
