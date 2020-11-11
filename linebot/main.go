@@ -34,9 +34,10 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	log.Print(request.Headers)
 	log.Print(request.Body)
 
+	// Webhook型（構造体）変数定義
 	var webhook Webhook
 
-	// jsonパースしてwebhook構造体に格納
+	// request.Bodyをjsonパースしてwebhook構造体に格納
 	if err := json.Unmarshal([]byte(request.Body), &webhook); err != nil {
 		log.Print(err)
 		return events.APIGatewayProxyResponse{
@@ -44,7 +45,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 			Body:       fmt.Sprintf(`{"message":"%s"}`+"\n", http.StatusText(http.StatusBadRequest)),
 		}, nil
 	}
-	
+
 	for _, event := range webhook.Events {
 		switch event.Type {
 		case linebot.EventTypeMessage:
